@@ -14,9 +14,14 @@ namespace GamesProcess.Models
             arrMachine = new int[5];
         }
 
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Display(Name = "Event Number")]
         public int EventID { get; set; }
         public int GameID { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
         [NotMapped]

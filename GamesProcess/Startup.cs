@@ -60,6 +60,11 @@ namespace GamesProcess
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                       name: "pagination",
+                       template: "Events/PageNumber{pageNumber}",
+                       defaults: new { Controller = "Event", action = "Index" }
+                       );
             });
         }
     }
