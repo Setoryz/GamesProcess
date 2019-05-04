@@ -24,44 +24,55 @@ namespace GamesProcess.Libs
         // PRIVATE BOOL METHOD TO CHECK IF REFERENCE WEEEK HAS PROVIDED VALUE
         private static bool refEventHasValueCheck(IQueryable<Event> events, int currentWeek, int secondWeek, int secondWeekValue)
         {
-            return events.Skip(currentWeek + secondWeek).First().Winning.Contains(secondWeekValue) || events.Skip(currentWeek + secondWeek).First().Machine.Contains(secondWeekValue);
+            if ((currentWeek + secondWeek) < events.Count() && (currentWeek + secondWeek >= 0))
+            {
+                return events.Skip(currentWeek + secondWeek).First().Winning.Contains(secondWeekValue) || events.Skip(currentWeek + secondWeek).First().Machine.Contains(secondWeekValue);
+            }
+            else
+            {
+                return false;
+            }
         }
+        // OVERLOAD
+        private static bool refEventHasValueCheck(IQueryable<Event> events, int currentWeek, int secondWeek, int secondWeekValue, int secondWeekValuePosition)
+        {
+            if ((currentWeek + secondWeek) < events.Count() && (currentWeek + secondWeek >= 0))
+            {
+                return events.Skip(currentWeek + secondWeek).First().Winning[secondWeekValuePosition] == secondWeekValue || events.Skip(currentWeek + secondWeek).First().Machine[secondWeekValuePosition] == secondWeekValue;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         // PUBLIC IQUERYABLE METHOD TO FIND EVENTS
         // FINDS EVENT WHEN ONLY ONE NUMBR IS PROVIDED
-        public static IQueryable<Event> FindAsync(IQueryable<Event> events, int referenceValue, int referencePosition)
+        public static IQueryable<Event> FindAsync(IQueryable<Event> events, int noOfWeeksToDisplay, int referenceValue, int? referencePosition)
         {
             IList<Event> selectedEvents = new List<Event>();
 
-            if (referencePosition != 0)
+            if (referencePosition.HasValue)
             {
-                for (int i = 0; i < events.Count(); i++)
+                for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
                 {
-                    var currentEvent = events.Skip(i).First();
-                    
-                    if (currentEventHasValueCheck(currentEvent, referenceValue, referencePosition))
+                    var currentEvent = events.Skip(currentWeek).First();
+
+                    if (currentEventHasValueCheck(currentEvent, referenceValue, (int)referencePosition))
                     {
-                        for (int j = i - 2; j <= i + 2; j++)
-                        {
-                            if (j >= 0)
-                            {
-                                selectedEvents.Add(events.Skip(j).First());
-                            }
-                        }
+                        selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
                     }
                 }
             }
             else
             {
-                for (int i = 0; i < events.Count(); i++)
+                for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
                 {
-                    var currentEvent = events.Skip(i).First();
-                    
+                    var currentEvent = events.Skip(currentWeek).First();
+
                     if (currentEventHasValueCheck(currentEvent, referenceValue))
                     {
-                        for (int j = i - 2; j <= i + 2; j++)
-                        {
-                            selectedEvents.Add(events.Skip(j).First());
-                        }
+                        selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
                     }
                 }
             }
@@ -69,25 +80,148 @@ namespace GamesProcess.Libs
         }
         // OVERLOAD
         // FINDS EVENT WHEN TWO VALUES ARE PROVIDED
-        public static IQueryable<Event> FindAsync(IQueryable<Event> events, int referenceValue, int referencePosition, int valueTwo, int valueTwoWeek)
+        public static IQueryable<Event> FindAsync(IQueryable<Event> events, int noOfWeeksToDisplay, int referenceValue, int? referencePosition, int valueTwo, int valueTwoWeek)
         {
             IList<Event> selectedEvents = new List<Event>();
 
-            if (referencePosition != 0)
+            if (referencePosition.HasValue)
             {
-                for (int i = 0; i < events.Count(); i++)
+                for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
                 {
-                    var currentEvent = events.Skip(i).First();
-                    
-                    if (currentEventHasValueCheck(currentEvent, referenceValue, referencePosition))
+                    var currentEvent = events.Skip(currentWeek).First();
+
+                    if (currentEventHasValueCheck(currentEvent, referenceValue, (int)referencePosition))
                     {
-                        if (events.Skip(i + valueTwoWeek).First().Winning.Contains(valueTwo) || events.Skip(i +valueTwoWeek).First().Machine.Contains(valueTwo))
+                        if (refEventHasValueCheck(events, currentWeek, valueTwoWeek, valueTwo))
                         {
-                            for (int j = i - 2; j <= i + 2; j++)
+                            selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
+                {
+                    var currentEvent = events.Skip(currentWeek).First();
+
+                    if (currentEventHasValueCheck(currentEvent, referenceValue))
+                    {
+                        if (refEventHasValueCheck(events, currentWeek, valueTwoWeek, valueTwo))
+                        {
+                            selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
+                        }
+                    }
+                }
+            }
+
+            return selectedEvents.AsQueryable();
+        }
+
+        //FINDS EVENT WHEN TWO VALUES ARE PROVIDED AND THE SECOND VALUE HAS A POSITION
+        public static IQueryable<Event> FindAsync(IQueryable<Event> events, int noOfWeeksToDisplay, int referenceValue, int? referencePosition, int valueTwo, int valueTwoWeek, int valueTwoPosition)
+        {
+            IList<Event> selectedEvents = new List<Event>();
+
+            if (referencePosition.HasValue)
+            {
+                for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
+                {
+                    var currentEvent = events.Skip(currentWeek).First();
+
+                    if (currentEventHasValueCheck(currentEvent, referenceValue, (int)referencePosition))
+                    {
+                        if (refEventHasValueCheck(events, currentWeek, valueTwoWeek, valueTwo, valueTwoPosition - 1))
+                        {
+                            selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
+                {
+                    var currentEvent = events.Skip(currentWeek).First();
+
+                    if (currentEventHasValueCheck(currentEvent, referenceValue))
+                    {
+                        if (refEventHasValueCheck(events, currentWeek, valueTwoWeek, valueTwo, valueTwoPosition - 1))
+                        {
+                            selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
+                        }
+                    }
+                }
+            }
+
+
+            return selectedEvents.AsQueryable(); ;
+        }
+
+        // FINDS EVENT WHEN THREE VALUES ARE PROVIDED
+        public static IQueryable<Event> FindAsync(IQueryable<Event> events, int noOfWeeksToDisplay, int referenceValue, int? referencePosition, int valueTwo, int valueTwoWeek, int? valueTwoPosition, int valueThree, int valueThreeWeek, int? valueThreePosition)
+        {
+            IList<Event> selectedEvents = new List<Event>();
+
+            if (valueThreePosition.HasValue)
+            {
+                if (valueTwoPosition.HasValue)
+                {
+                    if (referencePosition.HasValue)
+                    {
+                        for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
+                        {
+                            var currentEvent = events.Skip(currentWeek).First();
+                            if (currentEventHasValueCheck(currentEvent, referenceValue, (int)referencePosition))
                             {
-                                if (j >= 0)
+                                if (refEventHasValueCheck(events, currentWeek, valueTwoWeek, valueTwo, (int)valueTwoPosition - 1) && refEventHasValueCheck(events, currentWeek, valueThreeWeek, valueThree, (int)valueThreePosition - 1))
                                 {
-                                    selectedEvents.Add(events.Skip(j).First());
+                                    selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
+                        {
+                            var currentEvent = events.Skip(currentWeek).First();
+                            if (currentEventHasValueCheck(currentEvent, referenceValue))
+                            {
+                                if (refEventHasValueCheck(events, currentWeek, valueTwoWeek, valueTwo, (int)valueTwoPosition - 1) && refEventHasValueCheck(events, currentWeek, valueThreeWeek, valueThree, (int)valueThreePosition - 1))
+                                {
+                                    selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (referencePosition.HasValue)
+                    {
+                        for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
+                        {
+                            var currentEvent = events.Skip(currentWeek).First();
+                            if (currentEventHasValueCheck(currentEvent, referenceValue, (int)referencePosition))
+                            {
+                                if (refEventHasValueCheck(events, currentWeek, valueTwoWeek, valueTwo) && refEventHasValueCheck(events, currentWeek, valueThreeWeek, valueThree, (int)valueThreePosition - 1))
+                                {
+                                    selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
+                        {
+                            var currentEvent = events.Skip(currentWeek).First();
+                            if (currentEventHasValueCheck(currentEvent, referenceValue))
+                            {
+                                if (refEventHasValueCheck(events, currentWeek, valueTwoWeek, valueTwo) && refEventHasValueCheck(events, currentWeek, valueThreeWeek, valueThree, (int)valueThreePosition - 1))
+                                {
+                                    selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
                                 }
                             }
                         }
@@ -96,54 +230,70 @@ namespace GamesProcess.Libs
             }
             else
             {
-                for (int i = 0; i < events.Count(); i++)
+                if (valueTwoPosition.HasValue)
                 {
-                    var currentEvent = events.Skip(i).First();
-                    //bool winningCheck = currentEvent.Winning.Contains(referenceValue);
-                    //bool machineCheck = currentEvent.Machine.Contains(referenceValue);
-                    if (currentEventHasValueCheck(currentEvent, referenceValue))
+                    if (referencePosition.HasValue)
                     {
-                        if (events.Skip(i + valueTwoWeek).First().Winning.Contains(valueTwo) || events.Skip(i + valueTwoWeek).First().Machine.Contains(valueTwo))
+                        for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
                         {
-
+                            var currentEvent = events.Skip(currentWeek).First();
+                            if (currentEventHasValueCheck(currentEvent, referenceValue, (int)referencePosition))
+                            {
+                                if (refEventHasValueCheck(events, currentWeek, valueTwoWeek, valueTwo, (int)valueTwoPosition - 1) && refEventHasValueCheck(events, currentWeek, valueThreeWeek, valueThree))
+                                {
+                                    selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
+                                }
+                            }
                         }
-                        for (int j = i - 2; j <= i + 2; j++)
+                    }
+                    else
+                    {
+                        for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
                         {
-                            selectedEvents.Add(events.Skip(j).First());
+                            var currentEvent = events.Skip(currentWeek).First();
+                            if (currentEventHasValueCheck(currentEvent, referenceValue))
+                            {
+                                if (refEventHasValueCheck(events, currentWeek, valueTwoWeek, valueTwo, (int)valueTwoPosition - 1) && refEventHasValueCheck(events, currentWeek, valueThreeWeek, valueThree))
+                                {
+                                    selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
+                                }
+                            }
                         }
                     }
                 }
-            }
-
-            return selectedEvents.AsQueryable(); ;
-        }
-
-        //FINDS EVENT WHEN TWO VALUES ARE PROVIDED AND THE SECOND VALUE HAS A POSITION
-        public static IQueryable<Event> FindAsync(IQueryable<Event> events, int referenceValue, int referencePosition, int valueTwo, int valueTwoWeek, int valueTwoPosition)
-        {
-            IList<Event> selectedEvents = new List<Event>();
-
-            for (int i = 0; i < events.Count(); i++)
-            {
-                var currentEvent = events.Skip(i).First();
-                //bool winningCheck = currentEvent.Winning[referencePosition - 1] == referenceValue;
-                //bool machineCheck = currentEvent.Machine[referencePosition - 1] == referenceValue;
-                if (currentEventHasValueCheck(currentEvent, referenceValue, referencePosition))
+                else
                 {
-                    if (events.Skip(i + valueTwoWeek).First().Winning[valueTwoPosition - 1] == valueTwo)
+                    if (referencePosition.HasValue)
                     {
-                        for (int j = i - 2; j <= i + 2; j++)
+                        for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
                         {
-                            if (j >= 0)
+                            var currentEvent = events.Skip(currentWeek).First();
+                            if (currentEventHasValueCheck(currentEvent, referenceValue, (int)referencePosition))
                             {
-                                selectedEvents.Add(events.Skip(j).First());
+                                if (refEventHasValueCheck(events, currentWeek, valueTwoWeek, valueTwo) && refEventHasValueCheck(events, currentWeek, valueThreeWeek, valueThree))
+                                {
+                                    selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
+                        {
+                            var currentEvent = events.Skip(currentWeek).First();
+                            if (currentEventHasValueCheck(currentEvent, referenceValue))
+                            {
+                                if (refEventHasValueCheck(events, currentWeek, valueTwoWeek, valueTwo) && refEventHasValueCheck(events, currentWeek, valueThreeWeek, valueThree))
+                                {
+                                    selectedEvents.JoinSelectedEvents(events, currentWeek, noOfWeeksToDisplay);
+                                }
                             }
                         }
                     }
                 }
             }
-            
-            return selectedEvents.AsQueryable(); ;
+            return selectedEvents.AsQueryable();
         }
     }
 }

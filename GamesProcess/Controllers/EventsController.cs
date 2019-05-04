@@ -61,9 +61,12 @@ namespace GamesProcess.Controllers
 
 
         // GET: Search
-        public async Task<IActionResult> Search(int noOfSearchValues, int referenceValue, int? value2, int value2Week, int? value2Pos, int referencePos = 0)
+        public async Task<IActionResult> Search(int noOfSearchValues, int referenceValue, int? value2, int value2Week, int? value2Pos, int? value3, int value3Week, int? value3Pos, int? pageNumber, int? referencePos, int noOfWeeksToDisplay = 2)
         {
             ViewData["SearchParmAmt"] = noOfSearchValues;
+            ViewData["DisplayWeeksParmAmt"] = noOfWeeksToDisplay;
+            ViewData["DisplaySpaceParm"] = (noOfWeeksToDisplay * 2) + 1;
+            int sizePerPage = ((noOfWeeksToDisplay * 2) + 1) * 10;
 
             // Reference Value
             ViewData["ReferenceParm"] = referenceValue;
@@ -74,24 +77,41 @@ namespace GamesProcess.Controllers
             ViewData["Value2WeekParm"] = value2Week;
             ViewData["Value2PosParm"] = value2Pos;
 
+            // 3rd Search Value
+            ViewData["Value3Parm"] = value3;
+            ViewData["Value3WeekParm"] = value3Week;
+            ViewData["Value3PosParm"] = value3Pos;
+
+            referencePos = referencePos == 0 ? null : referencePos;
+            value2Pos = value2Pos == 0 ? null : value2Pos;
+            value3Pos = value3Pos == 0 ? null : value3Pos;
+
             var events = from s in _context.Events select s;
+
+            IQueryable<Event> selectedEvents = Enumerable.Empty<Event>().AsQueryable();
 
             switch (noOfSearchValues)
             {
+                case 1:
+                    selectedEvents = AdvancedSearch.FindAsync(events, noOfWeeksToDisplay, referenceValue, referencePos);
+                    break;
                 case 2:
                     if (value2Pos.HasValue)
                     {
-                        return View(await Task.Run(() => AdvancedSearch.FindAsync(events, referenceValue, referencePos, (int)value2, value2Week, (int)value2Pos)));
+                        selectedEvents = AdvancedSearch.FindAsync(events, noOfWeeksToDisplay, referenceValue, referencePos, (int)value2, value2Week, (int)value2Pos);
                     }
                     else
                     {
-                        return View(await Task.Run(() => AdvancedSearch.FindAsync(events, referenceValue, referencePos, (int)value2, value2Week)));
+                        selectedEvents = AdvancedSearch.FindAsync(events, noOfWeeksToDisplay, referenceValue, referencePos, (int)value2, value2Week);
                     }
-                case 1:
-                    return View(await Task.Run(() => AdvancedSearch.FindAsync(events, referenceValue, referencePos)));
+                    break;
+                case 3:
+                    selectedEvents = AdvancedSearch.FindAsync(events, noOfWeeksToDisplay, referenceValue, referencePos, (int)value2, value2Week, value2Pos, (int)value3, value3Week, value3Pos);
+                    break;
                 default:
                     return View();
             }
+            return View(await Task.Run(() => PaginatedList<Event>.Create(selectedEvents, pageNumber ?? 1, sizePerPage)));
         }
 
 
