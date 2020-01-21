@@ -14,11 +14,18 @@ namespace GamesProcess.Models
             arrMachine = new int[5];
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int EventID { get; set; }
+
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Display(Name = "Event Number")]
-        public int EventID { get; set; }
+        public int EventNumber { get; set; }
+
+        //[ForeignKey("Game")]
         public int GameID { get; set; }
+        //public Game Game { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

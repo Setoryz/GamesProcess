@@ -8,7 +8,16 @@ namespace GamesProcess.Libs
 {
     public class LoadExcel
     {
+        #region GET EXCEL CELL VALUE
+
         // wCellValue METHOD TO GET THE CELL VALUE FROM SPECIFIED EXCEL WORKSHEET USING THE ROW INDEX AND COLUM INDEX
+        /// <summary>
+        /// Method to get the cell value from excel worksheet using the specified Worksheet, Row Index and Column Index
+        /// </summary>
+        /// <param name="workSheet"></param>
+        /// <param name="rowIndex"></param>
+        /// <param name="columnIndex"></param>
+        /// <returns></returns>
         public static string wCellValue(ExcelWorksheet workSheet, int rowIndex, int columnIndex)
         {
             // TRY CATCH BLOCK TO CATCH NULLREFERENCE EXCEPTIONS FOR CELLS WITH NULL VALUE
@@ -22,7 +31,14 @@ namespace GamesProcess.Libs
             }
         }
 
-        // wCellValue METHOD TO GET THE CELL VALUES FROM SPECIFIED EXCEL WORKSHEET USING THE ROW INDEX AND RANGE FOR COLUMN INDEXES: USED TO COLLECT ARRAY VALUES ON AN EXCEL ROW
+        /// <summary>
+        /// Method to get the Cell values from excel worksheet using the Row Index and Range From specified column index
+        /// </summary>
+        /// <param name="workSheet"></param>
+        /// <param name="rowIndex"></param>
+        /// <param name="columnIndexBegin"></param>
+        /// <param name="columnIndexEnd"></param>
+        /// <returns></returns>
         public static int[] wCellValue(ExcelWorksheet workSheet, int rowIndex, int columnIndexBegin, int columnIndexEnd)
         {
             int[] arr = new int[(columnIndexEnd - columnIndexBegin) + 1];
@@ -37,5 +53,6 @@ namespace GamesProcess.Libs
             }
             return arr;
         }
+        #endregion
     }
 }
