@@ -8,7 +8,7 @@ using GamesProcess.Data;
 namespace GamesProcess.Migrations
 {
     [DbContext(typeof(GameContext))]
-    [Migration("20190510202647_initial")]
+    [Migration("20200122180509_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,11 +42,27 @@ namespace GamesProcess.Migrations
                 {
                     b.Property<int>("ID");
 
+                    b.Property<int>("GamesClassID");
+
                     b.Property<string>("Name");
 
                     b.HasKey("ID");
 
+                    b.HasIndex("GamesClassID");
+
                     b.ToTable("Game");
+                });
+
+            modelBuilder.Entity("GamesProcess.Models.GamesClass", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("id");
+
+                    b.ToTable("GamesClass");
                 });
 
             modelBuilder.Entity("GamesProcess.Models.Event", b =>
@@ -54,6 +70,14 @@ namespace GamesProcess.Migrations
                     b.HasOne("GamesProcess.Models.Game")
                         .WithMany("Events")
                         .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GamesProcess.Models.Game", b =>
+                {
+                    b.HasOne("GamesProcess.Models.GamesClass")
+                        .WithMany("Games")
+                        .HasForeignKey("GamesClassID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }

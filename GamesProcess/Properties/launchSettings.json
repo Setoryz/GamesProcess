@@ -1,9 +1,9 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:49696/",
+      "applicationUrl": "http://localhost:49999/",
       "sslPort": 0
     }
   },
@@ -16,12 +16,12 @@
       }
     },
     "GamesProcess": {
-      "commandName": "Project",
+      "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:49697"
+      "applicationUrl": "http://localhost:49999"
     }
   }
 }
