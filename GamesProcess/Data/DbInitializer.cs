@@ -11,13 +11,21 @@ namespace GamesProcess.Data
 {
     public class DbInitializer
     {
-        /// <summary>
-        /// Method to initialize Database with Datas from excel workbooks. 
-        /// </summary>
-        /// <param name="context"></param>
         public static void Initialize(GameContext context)
         {
             //context.Database.EnsureCreated();
+
+            if (context.GamesClass.Any())
+            {
+                return;
+            }
+
+            var gamesClass = new List<GamesClass>
+            {
+                new GamesClass { id = 1, Name = "Premiere Games"},
+                new GamesClass { id = 2, Name = "Ghana Games"},
+                new GamesClass { id =3, Name =  "Other Games"}
+            };
 
             if (context.Games.Any())
             {
@@ -30,7 +38,10 @@ namespace GamesProcess.Data
                 new Game { ID = 3, Name = "Midweek Wednesday"},
                 new Game { ID = 4, Name = "Fortune Thursday" },
                 new Game { ID = 5, Name = "Friday Bonanza"},
-                new Game { ID = 6, Name = "National Saturday" }
+                new Game { ID = 6, Name = "National Saturday" },
+                new Game { ID = 7, Name = "Mark II"},
+                new Game { ID = 8, Name = "06 Premier"},
+                new Game { ID = 9, Name = "Premier Club Master"}
             };
             foreach (Game game in games)
             {
@@ -39,19 +50,25 @@ namespace GamesProcess.Data
             context.SaveChanges();
 
             // CODE TO ADD THE EXCEL FILE TO DATABASE
-            string workbookFilePath1 = "C:\\Users\\ODUKOYA JESUSEYITAN\\Documents\\NF\\NR\\Load\\mondaySpecialDB.xlsx";
-            string workbookFilePath2 = "C:\\Users\\ODUKOYA JESUSEYITAN\\Documents\\NF\\NR\\Load\\luckyTuesdayDB.xlsx";
-            string workbookFilePath3 = "C:\\Users\\ODUKOYA JESUSEYITAN\\Documents\\NF\\NR\\Load\\midweekWednesdayDB.xlsx";
-            string workbookFilePath4 = "C:\\Users\\ODUKOYA JESUSEYITAN\\Documents\\NF\\NR\\Load\\fortuneThursdayDB.xlsx";
-            string workbookFilePath5 = "C:\\Users\\ODUKOYA JESUSEYITAN\\Documents\\NF\\NR\\Load\\bonanzaFridayDB.xlsx"; // FILE LOCATION
-            string workbookFilePath6 = "C:\\Users\\ODUKOYA JESUSEYITAN\\Documents\\NF\\NR\\Load\\nationalDB.xlsx";
+            string workbookFilePath1 = "C:\\Users\\Home\\Documents\\NF\\NR\\Load\\mondaySpecialDB.xlsx";
+            string workbookFilePath2 = "C:\\Users\\Home\\Documents\\NF\\NR\\Load\\luckyTuesdayDB.xlsx";
+            string workbookFilePath3 = "C:\\Users\\Home\\Documents\\NF\\NR\\Load\\midweekWednesdayDB.xlsx";
+            string workbookFilePath4 = "C:\\Users\\Home\\Documents\\NF\\NR\\Load\\fortuneThursdayDB.xlsx";
+            string workbookFilePath5 = "C:\\Users\\Home\\Documents\\NF\\NR\\Load\\bonanzaFridayDB.xlsx"; // FILE LOCATION
+            string workbookFilePath6 = "C:\\Users\\Home\\Documents\\NF\\NR\\Load\\nationalDB.xlsx";
+            string workbookFilePath7 = "C:\\Users\\Home\\Documents\\NF\\NR\\Load\\markIIDB.xlsx";
+            string workbookFilePath8 = "C:\\Users\\Home\\Documents\\NF\\NR\\Load\\06premierDB.xlsx";
+            string workbookFilePath9 = "C:\\Users\\Home\\Documents\\NF\\NR\\Load\\premierClubMasterDB.xlsx";
             var workbookFileInfos = new List<FileInfo> {
                 new FileInfo(workbookFilePath1),
                 new FileInfo(workbookFilePath2),
                 new FileInfo(workbookFilePath3),
                 new FileInfo(workbookFilePath4),
                 new FileInfo(workbookFilePath5),
-                new FileInfo(workbookFilePath6)
+                new FileInfo(workbookFilePath6),
+                new FileInfo(workbookFilePath7),
+                new FileInfo(workbookFilePath8),
+                new FileInfo(workbookFilePath9)
             }; // PASS FILE LOCATION INTO FILE INFORMATION
 
             int i = 1;

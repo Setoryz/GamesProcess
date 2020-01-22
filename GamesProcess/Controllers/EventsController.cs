@@ -22,18 +22,7 @@ namespace GamesProcess.Controllers
             _context = context;
         }
 
-
         // GET: Events
-        #region GET INDEX CONTROLLER
-        /// <summary>
-        /// This is the default controller that returns the index method when the events page is requested
-        /// A list of the events paginated by size of 50 per page is returned
-        /// </summary>
-        /// <param name="sortOrder"></param>
-        /// <param name="currentFilter"></param>
-        /// <param name="searchString"></param>
-        /// <param name="pageNumber"></param>
-        /// <returns></returns>
         public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? pageNumber)
         {
             ViewData["CurrentSort"] = sortOrder;
@@ -69,37 +58,15 @@ namespace GamesProcess.Controllers
 
             return View(await PaginatedList<Event>.CreateAsync(events.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
-        #endregion
 
-        #region GET SEARCH CONTROLLER
-        /// <summary>
-        /// Advanced Search to use parameters provided to get paginated values from DB
-        /// </summary>
-        /// <param name="noOfSearchValues"></param>
-        /// <param name="gameSelection"></param>
-        /// <param name="referenceValue"></param>
-        /// <param name="referenceLocation"></param>
-        /// <param name="referencePos"></param>
-        /// <param name="value2"></param>
-        /// <param name="val2WeekSelect"></param>
-        /// <param name="val2Location"></param>
-        /// <param name="value2Week"></param>
-        /// <param name="value2Pos"></param>
-        /// <param name="value3"></param>
-        /// <param name="val3WeekSelect"></param>
-        /// <param name="val3Location"></param>
-        /// <param name="value3Week"></param>
-        /// <param name="value3Pos"></param>
-        /// <param name="pageNumber"></param>
-        /// <param name="noOfWeeksToDisplay"></param>
-        /// <returns></returns>
+
         // GET: Search
         public async Task<IActionResult> Search(
             int noOfSearchValues, int gameSelection,
             int referenceValue, int referenceLocation, int? referencePos,
             int? value2, int val2WeekSelect, int val2Location, int value2Week, int? value2Pos,
             int? value3, int val3WeekSelect, int val3Location, int value3Week, int? value3Pos,
-            int? pageNumber, int noOfWeeksToDisplay = 5)
+            int? pageNumber, int noOfWeeksToDisplay = 2)
         {
             // Search Results Data
             ViewBag.SearchParmAmt = noOfSearchValues;
@@ -116,10 +83,10 @@ namespace GamesProcess.Controllers
             // 2nd Search Value
             ViewBag.Value2 = value2;
             ViewBag.Val2WeekSelect = val2WeekSelect; //
-            ViewBag.Val2Location = val2Location; // F
+            ViewBag.Val2Location = val2Location; //
             ViewBag.Value2Week = value2Week;
             ViewBag.Value2Pos = value2Pos;
-            ViewBag.Value2WeekAbs = value2Week >= 0 ? value2Week : ((noOfWeeksToDisplay * 2) + 1 + value2Week);
+            ViewBag.Value2WeekAbs = value2Week >= 0 ? value2Week : ((noOfWeeksToDisplay * 3) + 1 + value2Week);
 
             // 3rd Search Value
             ViewBag.Value3 = value3;
@@ -127,7 +94,7 @@ namespace GamesProcess.Controllers
             ViewBag.Val3Location = val3Location;
             ViewBag.Value3Week = value3Week;
             ViewBag.Value3Pos = value3Pos;
-            ViewBag.Value3WeekAbs = value3Week >= 0 ? value3Week : ((noOfWeeksToDisplay * 2) + 1 + value3Week);
+            ViewBag.Value3WeekAbs = value3Week >= 0 ? value3Week : ((noOfWeeksToDisplay * 3) + 1 + value3Week);
 
 
             referencePos = referencePos == 0 ? null : referencePos;
@@ -143,6 +110,9 @@ namespace GamesProcess.Controllers
                 case 4:
                 case 5:
                 case 6:
+                case 7:
+                case 8:
+                case 9:
                     events = from s in _context.Events
                              .Where(s => s.GameID == gameSelection)
                              select s;
@@ -181,7 +151,6 @@ namespace GamesProcess.Controllers
             }
             return View(await Task.Run(() => PaginatedList<Event>.Create(selectedEvents.AsQueryable(), pageNumber ?? 1, sizePerPage)));
         }
-        #endregion
 
 
         // GET: Events/Details/5
