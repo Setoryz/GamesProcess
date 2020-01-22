@@ -15,10 +15,10 @@ namespace GamesProcess.Data
         {
             //context.Database.EnsureCreated();
 
-            if (context.GamesClass.Any())
-            {
-                return;
-            }
+            //if (context.GamesClass.Any())
+            //{
+            //    return;
+            //}
 
 
             var gamesClass = new List<GamesClass>
@@ -35,6 +35,12 @@ namespace GamesProcess.Data
                 new GamesClass { id = 10, Name = "Winlot Games"},
                 new GamesClass { id = 11, Name = "Other Games"},
             };
+            foreach (GamesClass gamesclass in gamesClass)
+            {
+                context.GamesClass.Add(gamesclass);
+            }
+            context.SaveChanges();
+
 
             var games = new List<Game> {
                 // Gab
@@ -174,10 +180,10 @@ namespace GamesProcess.Data
 
             // CODE TO ADD THE EXCEL FILE TO DATABASE
             string[] workbookFilePaths = new String[118];
-            string FolderLocation = "C:\\Users\\ODUKOYA JESUSEYITAN\\Documents\\NF\\NR\\Load\\";
-            for (int currentLoop = 1; currentLoop <= games.Capacity; currentLoop++)
+            string FolderLocation = "C:\\Users\\ODUKOYA JESUSEYITAN\\Documents\\NF\\NR\\Load\\ALL GAMES\\";
+            for (int currentLoop = 1; currentLoop <= games.Count; currentLoop++)
             {
-                workbookFilePaths[currentLoop - 1] = $"{FolderLocation}{Trim.trim(games.Where(e => e.ID == currentLoop).SingleOrDefault()?.Name)}.xlsx";
+                workbookFilePaths[currentLoop - 1] = $"{FolderLocation}{Trim.trim(games.Where(e => e.ID == currentLoop).SingleOrDefault()?.Name)}DB.xlsx";
             }
 
             #region Former Input
@@ -284,10 +290,10 @@ namespace GamesProcess.Data
 
                     }
                 }
-            }
 
-            context.SaveChanges();
-            i++;
+                context.SaveChanges();
+                i++;
+            }
         }
 
     }

@@ -54,8 +54,7 @@ namespace GamesProcess.Migrations
 
             modelBuilder.Entity("GamesProcess.Models.GamesClass", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("id");
 
                     b.Property<string>("Name");
 

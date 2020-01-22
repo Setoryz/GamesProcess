@@ -8,8 +8,8 @@ using GamesProcess.Data;
 namespace GamesProcess.Migrations
 {
     [DbContext(typeof(GameContext))]
-    [Migration("20200122180509_initial")]
-    partial class initial
+    [Migration("20200122202145_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,8 +55,7 @@ namespace GamesProcess.Migrations
 
             modelBuilder.Entity("GamesProcess.Models.GamesClass", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("id");
 
                     b.Property<string>("Name");
 
