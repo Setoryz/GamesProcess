@@ -19,6 +19,7 @@ namespace GamesProcess.Libs
             this.AddRange(items);
         }
 
+        //public int gamesID { get; set; }
 
         // to know if previous page is available
         public bool HasPreviousPage

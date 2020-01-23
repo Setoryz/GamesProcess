@@ -1,275 +1,281 @@
 @model GamesProcess.Libs.PaginatedList<GamesProcess.Models.Event>
-    @*@model GamesProcess.Models.Game*@
+@*@model GamesProcess.Models.Game*@
 
-    @{
+@{
     ViewData["Title"] = "Search";
     int y = 1;
-    }
+}
 
-    <h2>Search</h2>
+<h2>Search</h2>
 
-    @*<p>
+@*<p>
         <a asp-action="Create">Create New</a>
     </p>
-    *@
+*@
 
 
-    <form action="Search" method="get">
-        <div>
-            <h4>
-                Advanced Search:
-            </h4>
+<form action="Search" method="get">
+    <div>
+        <h4>
+            Advanced Search:
+        </h4>
 
-            @*Reference Value Input*@
-            <div class="form-group">
-                <label class="control-label">No of Search Values</label>
-                <input type="number" name="NoOfSearchValues" min="1" max="3" value="@ViewBag.SearchParmAmt" />
-                <label class="control-label">No of Weeks to Show Before/After</label>
-                <input type="number" name="NoOfWeeksToDisplay" min="2" max="15" value="@ViewBag.DisplayWeeksParmAmt" />
-                <label class="control-label">Game</label>
-                <select name="GameSelection">
-                    <option value="0">All games</option>
-                    @switch ((int)ViewBag.GameSelection)
-                    {
+        <hr />
+
+        <select name="GameSelection" class="form-control" asp-items="@(new SelectList(ViewBag.ListOfGames, "ID", "Name"))"></select>
+
+        @*Reference Value Input*@
+        <div class="form-group">
+            <label class="control-label">No of Search Values</label>
+            <input type="number" name="NoOfSearchValues" min="1" max="3" value="@ViewBag.SearchParmAmt" />
+            <label class="control-label">No of Weeks to Show Before/After</label>
+            <input type="number" name="NoOfWeeksToDisplay" min="2" max="15" value="@ViewBag.DisplayWeeksParmAmt" />
+            <label class="control-label">Game</label>
+
+
+            <select name="GameSelection">
+                <option value="0">All games</option>
+                @switch ((int)ViewBag.GameSelection)
+                {
                     case 1:
-                    <option selected value="1">Monday Special</option>
-                    <option value="2">Lucky Tuesday</option>
-                    <option value="3">Midweek Wednesday</option>
-                    <option value="4">Fortune</option>
-                    <option value="5">Bonanza Friday</option>
-                    <option value="6">National Saturday</option>
-                    <option value="7">Mark II</option>
-                    <option value="8">06 Premier</option>
-                    <option value="9">Premier Club Master</option>
-                    break;
+                        <option selected value="1">Monday Special</option>
+                        <option value="2">Lucky Tuesday</option>
+                        <option value="3">Midweek Wednesday</option>
+                        <option value="4">Fortune</option>
+                        <option value="5">Bonanza Friday</option>
+                        <option value="6">National Saturday</option>
+                        <option value="7">Mark II</option>
+                        <option value="8">06 Premier</option>
+                        <option value="9">Premier Club Master</option>
+                        break;
                     case 2:
-                    <option value="1">Monday Special</option>
-                    <option selected value="2">Lucky Tuesday</option>
-                    <option value="3">Midweek Wednesday</option>
-                    <option value="4">Fortune Thursday</option>
-                    <option value="5">Bonanza Friday</option>
-                    <option value="6">National Saturday</option>
-                    <option value="7">Mark II</option>
-                    <option value="8">06 Premier</option>
-                    <option value="9">Premier Club Master</option>
-                    break;
+                        <option value="1">Monday Special</option>
+                        <option selected value="2">Lucky Tuesday</option>
+                        <option value="3">Midweek Wednesday</option>
+                        <option value="4">Fortune Thursday</option>
+                        <option value="5">Bonanza Friday</option>
+                        <option value="6">National Saturday</option>
+                        <option value="7">Mark II</option>
+                        <option value="8">06 Premier</option>
+                        <option value="9">Premier Club Master</option>
+                        break;
                     case 3:
-                    <option value="1">Monday Special</option>
-                    <option value="2">Lucky Tuesday</option>
-                    <option selected value="3">Midweek Wednesday</option>
-                    <option value="4">Fortune Thursday</option>
-                    <option value="5">Bonanza Friday</option>
-                    <option value="6">National Saturday</option>
-                    <option value="7">Mark II</option>
-                    <option value="8">06 Premier</option>
-                    <option value="9">Premier Club Master</option>
-                    break;
+                        <option value="1">Monday Special</option>
+                        <option value="2">Lucky Tuesday</option>
+                        <option selected value="3">Midweek Wednesday</option>
+                        <option value="4">Fortune Thursday</option>
+                        <option value="5">Bonanza Friday</option>
+                        <option value="6">National Saturday</option>
+                        <option value="7">Mark II</option>
+                        <option value="8">06 Premier</option>
+                        <option value="9">Premier Club Master</option>
+                        break;
                     case 4:
-                    <option value="1">Monday Special</option>
-                    <option value="2">Lucky Tuesday</option>
-                    <option value="3">Midweek Wednesday</option>
-                    <option selected value="4">Fortune Thursday</option>
-                    <option value="5">Bonanza Friday</option>
-                    <option value="6">National Saturday</option>
-                    break;
+                        <option value="1">Monday Special</option>
+                        <option value="2">Lucky Tuesday</option>
+                        <option value="3">Midweek Wednesday</option>
+                        <option selected value="4">Fortune Thursday</option>
+                        <option value="5">Bonanza Friday</option>
+                        <option value="6">National Saturday</option>
+                        break;
                     case 5:
-                    <option value="1">Monday Special</option>
-                    <option value="2">Lucky Tuesday</option>
-                    <option value="3">Midweek Wednesday</option>
-                    <option value="4">Fortune Thursday</option>
-                    <option selected value="5">Bonanza Friday</option>
-                    <option value="6">National Saturday</option>
-                    <option value="7">Mark II</option>
-                    <option value="8">06 Premier</option>
-                    <option value="9">Premier Club Master</option>
-                    break;
+                        <option value="1">Monday Special</option>
+                        <option value="2">Lucky Tuesday</option>
+                        <option value="3">Midweek Wednesday</option>
+                        <option value="4">Fortune Thursday</option>
+                        <option selected value="5">Bonanza Friday</option>
+                        <option value="6">National Saturday</option>
+                        <option value="7">Mark II</option>
+                        <option value="8">06 Premier</option>
+                        <option value="9">Premier Club Master</option>
+                        break;
                     case 6:
-                    <option value="1">Monday Special</option>
-                    <option value="2">Lucky Tuesday</option>
-                    <option value="3">Midweek Wednesday</option>
-                    <option value="4">Fortune Thursday</option>
-                    <option value="5">Bonanza Friday</option>
-                    <option selected value="6">National Saturday</option>
-                    <option value="7">Mark II</option>
-                    <option value="8">06 Premier</option>
-                    <option value="9">Premier Club Master</option>
-                    break;
+                        <option value="1">Monday Special</option>
+                        <option value="2">Lucky Tuesday</option>
+                        <option value="3">Midweek Wednesday</option>
+                        <option value="4">Fortune Thursday</option>
+                        <option value="5">Bonanza Friday</option>
+                        <option selected value="6">National Saturday</option>
+                        <option value="7">Mark II</option>
+                        <option value="8">06 Premier</option>
+                        <option value="9">Premier Club Master</option>
+                        break;
                     case 7:
-                    <option value="1">Monday Special</option>
-                    <option value="2">Lucky Tuesday</option>
-                    <option value="3">Midweek Wednesday</option>
-                    <option value="4">Fortune Thursday</option>
-                    <option value="5">Bonanza Friday</option>
-                    <option value="6">National Saturday</option>
-                    <option selected value="7">Mark II</option>
-                    <option value="8">06 Premier</option>
-                    <option value="9">Premier Club Master</option>
-                    break;
+                        <option value="1">Monday Special</option>
+                        <option value="2">Lucky Tuesday</option>
+                        <option value="3">Midweek Wednesday</option>
+                        <option value="4">Fortune Thursday</option>
+                        <option value="5">Bonanza Friday</option>
+                        <option value="6">National Saturday</option>
+                        <option selected value="7">Mark II</option>
+                        <option value="8">06 Premier</option>
+                        <option value="9">Premier Club Master</option>
+                        break;
                     case 8:
-                    <option value="1">Monday Special</option>
-                    <option value="2">Lucky Tuesday</option>
-                    <option value="3">Midweek Wednesday</option>
-                    <option value="4">Fortune Thursday</option>
-                    <option value="5">Bonanza Friday</option>
-                    <option value="6">National Saturday</option>
-                    <option value="7">Mark II</option>
-                    <option selected value="8">06 Premier</option>
-                    <option value="9">Premier Club Master</option>
-                    break;
+                        <option value="1">Monday Special</option>
+                        <option value="2">Lucky Tuesday</option>
+                        <option value="3">Midweek Wednesday</option>
+                        <option value="4">Fortune Thursday</option>
+                        <option value="5">Bonanza Friday</option>
+                        <option value="6">National Saturday</option>
+                        <option value="7">Mark II</option>
+                        <option selected value="8">06 Premier</option>
+                        <option value="9">Premier Club Master</option>
+                        break;
                     case 9:
-                    <option value="1">Monday Special</option>
-                    <option value="2">Lucky Tuesday</option>
-                    <option value="3">Midweek Wednesday</option>
-                    <option value="4">Fortune Thursday</option>
-                    <option value="5">Bonanza Friday</option>
-                    <option value="6">National Saturday</option>
-                    <option selected value="7">Mark II</option>
-                    <option value="8">06 Premier</option>
-                    <option value="9">Premier Club Master</option>
-                    break;
+                        <option value="1">Monday Special</option>
+                        <option value="2">Lucky Tuesday</option>
+                        <option value="3">Midweek Wednesday</option>
+                        <option value="4">Fortune Thursday</option>
+                        <option value="5">Bonanza Friday</option>
+                        <option value="6">National Saturday</option>
+                        <option selected value="7">Mark II</option>
+                        <option value="8">06 Premier</option>
+                        <option value="9">Premier Club Master</option>
+                        break;
                     default:
-                    <option value="1">Monday Special</option>
-                    <option value="2">Lucky Tuesday</option>
-                    <option value="3">Midweek Wednesday</option>
-                    <option value="4">Fortune Thursday</option>
-                    <option value="5">Bonanza Friday</option>
-                    <option value="6">National Saturday</option>
-                    <option value="7">Mark II</option>
-                    <option value="8">06 Premier</option>
-                    <option value="9">Premier Club Master</option>
-                    break;
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Reference Value</label>
-                <input type="number" name="ReferenceValue" min="1" max="90" value="@ViewBag.ReferenceValue" />
-                <label class="control-label">Where to Search</label>
-                <select name="ReferenceLocation">
-                    <option value="0">Machine &amp; Winning</option>
-                    @if (ViewBag.ReferenceLocation == 1)
-                    {
-                    <option selected value="1">Winning Only</option>
-                    <option value="2">Machine Only</option>
-                    }
-                    else if (ViewBag.ReferenceLocation == 2)
-                    {
-                    <option value="1">Winning Only</option>
-                    <option selected value="2">Machine Only</option>
-                    }
-                    else
-                    {
-                    <option value="1">Winning Only</option>
-                    <option value="2">Machine Only</option>
-                    }
-                </select>
-                <label class="control-label">Reference Value Positon</label>
-                <input type="number" name="ReferencePos" min="0" max="5" value="@ViewBag.ReferencePos" />
-            </div>
-            <hr />
-            @*Value 2 Input*@
-            <div class="form-group">
-                <label class="control-label">Value 2</label>
-                <input type="number" name="Value2" min="1" max="90" value="@ViewBag.Value2" />
-                <select name="Val2WeekSelect">
-                    <option value="">--Select--</option>
-                    @if (ViewBag.Val2WeekSelect == 1)
-                    {
-                    <option selected value="1">Use Specified Week</option>
-                    <option value="2">Use Range of weeks</option>
-                    }
-                    else if (ViewBag.Val2WeekSelect == 2)
-                    {
-                    <option value="1">Use Specified Week</option>
-                    <option selected value="2">Use Range of weeks</option>
-                    }
-                    else
-                    {
-                    <option value="1">Use Specified Week</option>
-                    <option value="2">Use Range of weeks</option>
-                    }
-                </select>
-                <label class="control-label">Weeks Apart</label>
-                <input type="number" name="Value2Week" min="-4" max="4" value="@ViewBag.Value2Week" />
-                <label class="control-label">Where to Search</label>
-                <select name="Val2Location">
-                    <option value="0">Machine &amp; Winning</option>
-                    @if (ViewBag.Val2Location == 1)
-                    {
-                    <option selected value="1">Winning Only</option>
-                    <option value="2">Machine Only</option>
-                    }
-                    else if (ViewBag.Val2Location == 2)
-                    {
-                    <option value="1">Winning Only</option>
-                    <option selected value="2">Machine Only</option>
-                    }
-                    else
-                    {
-                    <option value="1">Winning Only</option>
-                    <option value="2">Machine Only</option>
-                    }
-                </select>
-                <label class="control-label">Week Position</label>
-                <input type="number" name="Value2Pos" min="0" max="5" value="@ViewBag.Value2Pos" />
-            </div>
-            <hr />
-            @*Value 3 Input*@
-            <div class="form-group">
-                <label class="control-label">Value 3</label>
-                <input type="number" name="Value3" min="1" max="90" value="@ViewBag.Value3" />
-                <select name="Val3WeekSelect">
-                    <option value="">--Select--</option>
-                    @if (ViewBag.Val3WeekSelect == 1)
-                    {
-                    <option selected value="1">Use Specified Week</option>
-                    <option value="2">Use Range of weeks</option>
-                    }
-                    else if (ViewBag.Val3WeekSelect == 2)
-                    {
-                    <option value="1">Use Specified Week</option>
-                    <option selected value="2">Use Range of weeks</option>
-                    }
-                    else
-                    {
-                    <option value="1">Use Specified Week</option>
-                    <option value="2">Use Range of weeks</option>
-                    }
-                </select>
-                <label class="control-label">Weeks Apart</label>
-                <input type="number" name="Value3Week" min="-4" max="4" value="@ViewBag.Value3Week" />
-                <label class="control-label">Where to Search</label>
-                <select name="Val3Location">
-                    <option value="0">Machine &amp; Winning</option>
-                    @if (ViewBag.Val3Location == 1)
-                    {
-                    <option selected value="1">Winning Only</option>
-                    <option value="2">Machine Only</option>
-                    }
-                    else if (ViewBag.Val3Location == 2)
-                    {
-                    <option value="1">Winning Only</option>
-                    <option selected value="2">Machine Only</option>
-                    }
-                    else
-                    {
-                    <option value="1">Winning Only</option>
-                    <option value="2">Machine Only</option>
-                    }
-                </select>
-                <label class="control-label">Week Position</label>
-                <input type="number" name="Value3Pos" min="0" max="5" value="@ViewBag.Value3Pos" />
-            </div>
-            <hr />
-            <input type="submit" class="btn btn-default" value="Search" />
-            <a asp-action="Index">Back to Full List</a>
+                        <option value="1">Monday Special</option>
+                        <option value="2">Lucky Tuesday</option>
+                        <option value="3">Midweek Wednesday</option>
+                        <option value="4">Fortune Thursday</option>
+                        <option value="5">Bonanza Friday</option>
+                        <option value="6">National Saturday</option>
+                        <option value="7">Mark II</option>
+                        <option value="8">06 Premier</option>
+                        <option value="9">Premier Club Master</option>
+                        break;
+                }
+            </select>
         </div>
-    </form>
+        <div class="form-group">
+            <label class="control-label">Reference Value</label>
+            <input type="number" name="ReferenceValue" min="1" max="90" value="@ViewBag.ReferenceValue" />
+            <label class="control-label">Where to Search</label>
+            <select name="ReferenceLocation">
+                <option value="0">Machine &amp; Winning</option>
+                @if (ViewBag.ReferenceLocation == 1)
+                {
+                    <option selected value="1">Winning Only</option>
+                    <option value="2">Machine Only</option>
+                }
+                else if (ViewBag.ReferenceLocation == 2)
+                {
+                    <option value="1">Winning Only</option>
+                    <option selected value="2">Machine Only</option>
+                }
+                else
+                {
+                    <option value="1">Winning Only</option>
+                    <option value="2">Machine Only</option>
+                }
+            </select>
+            <label class="control-label">Reference Value Positon</label>
+            <input type="number" name="ReferencePos" min="0" max="5" value="@ViewBag.ReferencePos" />
+        </div>
+        <hr />
+        @*Value 2 Input*@
+        <div class="form-group">
+            <label class="control-label">Value 2</label>
+            <input type="number" name="Value2" min="1" max="90" value="@ViewBag.Value2" />
+            <select name="Val2WeekSelect">
+                <option value="">--Select--</option>
+                @if (ViewBag.Val2WeekSelect == 1)
+                {
+                    <option selected value="1">Use Specified Week</option>
+                    <option value="2">Use Range of weeks</option>
+                }
+                else if (ViewBag.Val2WeekSelect == 2)
+                {
+                    <option value="1">Use Specified Week</option>
+                    <option selected value="2">Use Range of weeks</option>
+                }
+                else
+                {
+                    <option value="1">Use Specified Week</option>
+                    <option value="2">Use Range of weeks</option>
+                }
+            </select>
+            <label class="control-label">Weeks Apart</label>
+            <input type="number" name="Value2Week" min="-4" max="4" value="@ViewBag.Value2Week" />
+            <label class="control-label">Where to Search</label>
+            <select name="Val2Location">
+                <option value="0">Machine &amp; Winning</option>
+                @if (ViewBag.Val2Location == 1)
+                {
+                    <option selected value="1">Winning Only</option>
+                    <option value="2">Machine Only</option>
+                }
+                else if (ViewBag.Val2Location == 2)
+                {
+                    <option value="1">Winning Only</option>
+                    <option selected value="2">Machine Only</option>
+                }
+                else
+                {
+                    <option value="1">Winning Only</option>
+                    <option value="2">Machine Only</option>
+                }
+            </select>
+            <label class="control-label">Week Position</label>
+            <input type="number" name="Value2Pos" min="0" max="5" value="@ViewBag.Value2Pos" />
+        </div>
+        <hr />
+        @*Value 3 Input*@
+        <div class="form-group">
+            <label class="control-label">Value 3</label>
+            <input type="number" name="Value3" min="1" max="90" value="@ViewBag.Value3" />
+            <select name="Val3WeekSelect">
+                <option value="">--Select--</option>
+                @if (ViewBag.Val3WeekSelect == 1)
+                {
+                    <option selected value="1">Use Specified Week</option>
+                    <option value="2">Use Range of weeks</option>
+                }
+                else if (ViewBag.Val3WeekSelect == 2)
+                {
+                    <option value="1">Use Specified Week</option>
+                    <option selected value="2">Use Range of weeks</option>
+                }
+                else
+                {
+                    <option value="1">Use Specified Week</option>
+                    <option value="2">Use Range of weeks</option>
+                }
+            </select>
+            <label class="control-label">Weeks Apart</label>
+            <input type="number" name="Value3Week" min="-4" max="4" value="@ViewBag.Value3Week" />
+            <label class="control-label">Where to Search</label>
+            <select name="Val3Location">
+                <option value="0">Machine &amp; Winning</option>
+                @if (ViewBag.Val3Location == 1)
+                {
+                    <option selected value="1">Winning Only</option>
+                    <option value="2">Machine Only</option>
+                }
+                else if (ViewBag.Val3Location == 2)
+                {
+                    <option value="1">Winning Only</option>
+                    <option selected value="2">Machine Only</option>
+                }
+                else
+                {
+                    <option value="1">Winning Only</option>
+                    <option value="2">Machine Only</option>
+                }
+            </select>
+            <label class="control-label">Week Position</label>
+            <input type="number" name="Value3Pos" min="0" max="5" value="@ViewBag.Value3Pos" />
+        </div>
+        <hr />
+        <input type="submit" class="btn btn-default" value="Search" />
+        <a asp-action="Index">Back to Full List</a>
+    </div>
+</form>
 
-    <hr />
+<hr />
 
-    @if (Model != null)
-    {
+@if (Model != null)
+{
 
     <table class="table table-hover table-bordered">
         <thead>
@@ -295,92 +301,92 @@
             @foreach (var item in Model)
             {
 
-            bool refWeek = (y + ViewBag.DisplayWeeksParmAmt) % ViewBag.DisplaySpaceParm == 0;
-            bool val2Week = ViewBag.SearchParmAmt >= 2 && (y + ViewBag.DisplayWeeksParmAmt) % ViewBag.DisplaySpaceParm == ViewBag.Value2WeekAbs;
-            bool val3Week = ViewBag.SearchParmAmt == 3 && (y + ViewBag.DisplayWeeksParmAmt) % ViewBag.DisplaySpaceParm == ViewBag.Value3WeekAbs;
-            var hasInfo = refWeek ? "warning" : "";
-            <tr class="@hasInfo">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventNumber)
-                </td>
-                @*@Html.DisplayFor(modelItem => item.WinningValues)*@
-                @for (int i = 0; i < item.Winning.Length; i++)
-                {
-                var highlight = (val2Week && item.Winning[i] == ViewBag.Value2) || (val3Week && item.Winning[i] == ViewBag.Value3) || (refWeek && item.Winning[i] == ViewBag.ReferenceValue) ? "danger" : "";
-                <td class="@highlight">
-                    @Html.DisplayFor(modelItem => item.Winning[i])
-                </td>
-                }
-                <td class="success"></td>
-                @for (int i = 0; i < item.Machine.Length; i++)
-                {
-                var highlight = (val2Week && item.Machine[i] == ViewBag.Value2) || (val3Week && item.Machine[i] == ViewBag.Value3) || (refWeek && item.Machine[i] == ViewBag.ReferenceValue) ? "danger" : "";
-                <td class="@highlight">
-                    @Html.DisplayFor(modelItem => item.Machine[i])
-                </td>
-                }
-                <td>
-                    @switch (item.GameID)
+                bool refWeek = (y + ViewBag.DisplayWeeksParmAmt) % ViewBag.DisplaySpaceParm == 0;
+                bool val2Week = ViewBag.SearchParmAmt >= 2 && (y + ViewBag.DisplayWeeksParmAmt) % ViewBag.DisplaySpaceParm == ViewBag.Value2WeekAbs;
+                bool val3Week = ViewBag.SearchParmAmt == 3 && (y + ViewBag.DisplayWeeksParmAmt) % ViewBag.DisplaySpaceParm == ViewBag.Value3WeekAbs;
+                var hasInfo = refWeek ? "warning" : "";
+                <tr class="@hasInfo">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventNumber)
+                    </td>
+                    @*@Html.DisplayFor(modelItem => item.WinningValues)*@
+                    @for (int i = 0; i < item.Winning.Length; i++)
                     {
-                    case 1:
-                    <span>Monday Special</span>
-                    break;
-                    case 2:
-                    <span>Lucky Tuesday</span>
-                    break;
-                    case 3:
-                    <span>Midweek Wednesday</span>
-                    break;
-                    case 4:
-                    <span>Fortune</span>
-                    break;
-                    case 5:
-                    <span>Friday Bonanza</span>
-                    break;
-                    case 6:
-                    <span>National</span>
-                    break;
-                    case 7:
-                    <span>Mark II</span>
-                    break;
-                    case 8:
-                    <span>06 Premier</span>
-                    break;
-                    case 9:
-                    <span>Premier Club Master</span>
-                    break;
-                    default:
-                    <span>Game Not Specified</span>
-                    break;
+                        var highlight = (val2Week && item.Winning[i] == ViewBag.Value2) || (val3Week && item.Winning[i] == ViewBag.Value3) || (refWeek && item.Winning[i] == ViewBag.ReferenceValue) ? "danger" : "";
+                        <td class="@highlight">
+                            @Html.DisplayFor(modelItem => item.Winning[i])
+                        </td>
                     }
-                </td>
-                @*
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.EventID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.EventID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.EventID">Delete</a>
-                </td>
-                *@
-            </tr>
-            @if (y % ViewBag.DisplaySpaceParm == 0)
-            {
-            <tr class="col success">
-                @for (int i = 0; i < 14; i++)
+                    <td class="success"></td>
+                    @for (int i = 0; i < item.Machine.Length; i++)
+                    {
+                        var highlight = (val2Week && item.Machine[i] == ViewBag.Value2) || (val3Week && item.Machine[i] == ViewBag.Value3) || (refWeek && item.Machine[i] == ViewBag.ReferenceValue) ? "danger" : "";
+                        <td class="@highlight">
+                            @Html.DisplayFor(modelItem => item.Machine[i])
+                        </td>
+                    }
+                    <td>
+                        @switch (item.GameID)
+                        {
+                            case 1:
+                                <span>Monday Special</span>
+                                break;
+                            case 2:
+                                <span>Lucky Tuesday</span>
+                                break;
+                            case 3:
+                                <span>Midweek Wednesday</span>
+                                break;
+                            case 4:
+                                <span>Fortune</span>
+                                break;
+                            case 5:
+                                <span>Friday Bonanza</span>
+                                break;
+                            case 6:
+                                <span>National</span>
+                                break;
+                            case 7:
+                                <span>Mark II</span>
+                                break;
+                            case 8:
+                                <span>06 Premier</span>
+                                break;
+                            case 9:
+                                <span>Premier Club Master</span>
+                                break;
+                            default:
+                                <span>Game Not Specified</span>
+                                break;
+                        }
+                    </td>
+                    @*
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.EventID">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.EventID">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.EventID">Delete</a>
+                        </td>
+                    *@
+                </tr>
+                @if (y % ViewBag.DisplaySpaceParm == 0)
                 {
-                <td></td>
+                    <tr class="col success">
+                        @for (int i = 0; i < 14; i++)
+                        {
+                            <td></td>
+                        }
+                    </tr>
+                    <tr class="col success">
+                        @for (int i = 0; i < 14; i++)
+                        {
+                            <td></td>
+                        }
+                    </tr>
                 }
-            </tr>
-            <tr class="col success">
-                @for (int i = 0; i < 14; i++)
-                {
-                <td></td>
-                }
-            </tr>
-            }
-            y++;
+                y++;
             }
         </tbody>
     </table>
@@ -427,4 +433,4 @@
        asp-route-value3Pos="@ViewBag.Value3Pos"
        asp-route-pageNumber="@(Model.PageIndex + 1)"
        class="btn btn-default @nextDisabled">Next</a>
-    }
+}

@@ -15,10 +15,10 @@ namespace GamesProcess.Data
         {
             //context.Database.EnsureCreated();
 
-            //if (context.GamesClass.Any())
-            //{
-            //    return;
-            //}
+            if (context.GamesClass.Any())
+            {
+                return;
+            }
 
 
             var gamesClass = new List<GamesClass>

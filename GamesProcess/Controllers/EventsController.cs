@@ -68,6 +68,13 @@ namespace GamesProcess.Controllers
             int? value3, int val3WeekSelect, int val3Location, int value3Week, int? value3Pos,
             int? pageNumber, int noOfWeeksToDisplay = 2)
         {
+            // Games Name List
+            List<Game> gamesList = new List<Game>();
+            gamesList = (from games in _context.Games select games).ToList(); //collect data from game context into list
+            gamesList.Insert(0, new Game { ID = 0, Name = "Select" }); // add select option to list
+            ViewBag.ListOfGames = gamesList;
+
+
             // Search Results Data
             ViewBag.SearchParmAmt = noOfSearchValues;
             ViewBag.DisplayWeeksParmAmt = noOfWeeksToDisplay;
@@ -120,9 +127,9 @@ namespace GamesProcess.Controllers
                 default:
                     break;
             }
-            //var selectedEvents = from s in _context.Events select s;
+            // var selectedEvents = from s in _context.Events select s;
 
-            //IQueryable<Event> selectedEvents = Enumerable.Empty<Event>().AsQueryable();
+            // IQueryable<Event> selectedEvents = Enumerable.Empty<Event>().AsQueryable();
             List<Event> selectedEvents = new List<Event>();
 
             switch (noOfSearchValues)
