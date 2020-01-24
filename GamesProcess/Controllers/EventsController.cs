@@ -108,28 +108,46 @@ namespace GamesProcess.Controllers
             value2Pos = value2Pos == 0 ? null : value2Pos;
             value3Pos = value3Pos == 0 ? null : value3Pos;
 
-            var events = from s in _context.Events select s;
-            switch (gameSelection)
-            {
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                case 9:
-                    events = from s in _context.Events
-                             .Where(s => s.GameID == gameSelection)
-                             select s;
-                    break;
-                default:
-                    break;
-            }
+            //var events = from s in _context.Events select s;
+
+            var events = (gameSelection > 0 && gameSelection < gamesList.Count) ? from s in _context.Events.Where(s => s.GameID == gameSelection) select s : from s in _context.Events select s;
+
+            #region IfStatement to conditionally select events based on id
+            //if (gameSelection > 0 && gameSelection < gamesList.Count())
+            //{
+            //    var events = from s in _context.Events
+            //                 .Where(s => s.GameID == gameSelection)
+            //                 select s;
+            //}
+            //else
+            //{
+            //    var events = from s in _context.Events select s;
+            //} 
+            #endregion
+
+            #region switchStatment used previously to select events based on provided games id
+            //switch (gameSelection)
+            //{
+            //    case 1:
+            //    case 2:
+            //    case 3:
+            //    case 4:
+            //    case 5:
+            //    case 6:
+            //    case 7:
+            //    case 8:
+            //    case 9:
+            //        events = from s in _context.Events
+            //                 .Where(s => s.GameID == gameSelection)
+            //                 select s;
+            //        break;
+            //    default:
+            //        break;
+            //}
             // var selectedEvents = from s in _context.Events select s;
 
-            // IQueryable<Event> selectedEvents = Enumerable.Empty<Event>().AsQueryable();
+            // IQueryable<Event> selectedEvents = Enumerable.Empty<Event>().AsQueryable(); 
+            #endregion
             List<Event> selectedEvents = new List<Event>();
 
             switch (noOfSearchValues)

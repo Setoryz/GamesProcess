@@ -22,17 +22,18 @@
 
         <hr />
 
-        <select name="GameSelection" class="form-control" asp-items="@(new SelectList(ViewBag.ListOfGames, "ID", "Name"))"></select>
+        @*<select name="GameSelection" class="form-control" asp-items="@(new SelectList(ViewBag.ListOfGames, "ID", "Name"))"></select>*@
 
         @*Reference Value Input*@
         <div class="form-group">
             <label class="control-label">No of Search Values</label>
             <input type="number" name="NoOfSearchValues" min="1" max="3" value="@ViewBag.SearchParmAmt" />
             <label class="control-label">No of Weeks to Show Before/After</label>
-            <input type="number" name="NoOfWeeksToDisplay" min="2" max="15" value="@ViewBag.DisplayWeeksParmAmt" />
+            <input type="number" name="NoOfWeeksToDisplay" min="2" max="45" value="@ViewBag.DisplayWeeksParmAmt" />
             <label class="control-label">Game</label>
 
             <select name="GameSelection" class="form-control" asp-items="@(new SelectList(ViewBag.ListOfGames, "ID", "Name"))"></select>
+
             @*<select name="GameSelection">
                 <option value="0">All games</option>
                 @switch ((int)ViewBag.GameSelection)
@@ -196,7 +197,7 @@
                 }
             </select>
             <label class="control-label">Weeks Apart</label>
-            <input type="number" name="Value2Week" min="-4" max="4" value="@ViewBag.Value2Week" />
+            <input type="number" name="Value2Week" min="-20" max="20" value="@ViewBag.Value2Week" />
             <label class="control-label">Where to Search</label>
             <select name="Val2Location">
                 <option value="0">Machine &amp; Winning</option>
@@ -243,7 +244,7 @@
                 }
             </select>
             <label class="control-label">Weeks Apart</label>
-            <input type="number" name="Value3Week" min="-4" max="4" value="@ViewBag.Value3Week" />
+            <input type="number" name="Value3Week" min="-20" max="20" value="@ViewBag.Value3Week" />
             <label class="control-label">Where to Search</label>
             <select name="Val3Location">
                 <option value="0">Machine &amp; Winning</option>
