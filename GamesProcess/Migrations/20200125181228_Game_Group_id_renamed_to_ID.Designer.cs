@@ -8,9 +8,10 @@ using GamesProcess.Data;
 namespace GamesProcess.Migrations
 {
     [DbContext(typeof(GameContext))]
-    partial class GameContextModelSnapshot : ModelSnapshot
+    [Migration("20200125181228_Game_Group_id_renamed_to_ID")]
+    partial class Game_Group_id_renamed_to_ID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")

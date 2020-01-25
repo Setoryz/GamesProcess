@@ -9,6 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Libs\Search.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Events\SearchByGroup.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Remove="Properties\PublishProfiles\FolderProfile1.pubxml" />
   </ItemGroup>
@@ -44,7 +52,9 @@
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\Events\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
