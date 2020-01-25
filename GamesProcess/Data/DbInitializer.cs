@@ -23,17 +23,16 @@ namespace GamesProcess.Data
 
             var gamesClass = new List<GamesClass>
             {
-                new GamesClass { id = 01, Name = "Gab Games"},
-                new GamesClass { id = 02, Name = "Ghana Games"},
-                new GamesClass { id = 03, Name = "Grand Lotto Games"},
-                new GamesClass { id = 04, Name = "Lagtech Games"},
-                new GamesClass { id = 05, Name = "Premier Games"},
-                new GamesClass { id = 06, Name = "Ritppong Games"},
-                new GamesClass { id = 07, Name = "Sky Games"},
-                new GamesClass { id = 08, Name = "Wesco Games"},
-                new GamesClass { id = 09, Name = "Western Games"},
-                new GamesClass { id = 10, Name = "Winlot Games"},
-                new GamesClass { id = 11, Name = "Other Games"},
+                new GamesClass { ID = 01, Name = "Gab Games"},
+                new GamesClass { ID = 02, Name = "Ghana Games"},
+                new GamesClass { ID = 03, Name = "Grand Lotto Games"},
+                new GamesClass { ID = 04, Name = "Lagtech Games"},
+                new GamesClass { ID = 05, Name = "Premier Games"},
+                new GamesClass { ID = 06, Name = "Ritppong Games"},
+                new GamesClass { ID = 07, Name = "Sky Games"},
+                new GamesClass { ID = 08, Name = "Wesco Games"},
+                new GamesClass { ID = 09, Name = "Winlot Games"},
+                new GamesClass { ID = 10, Name = "Other Games"},
             };
             foreach (GamesClass gamesclass in gamesClass)
             {
@@ -160,17 +159,17 @@ namespace GamesProcess.Data
                 new Game { ID = 0117, GamesClassID = 09, Name = "Winlot Special"},
                 new Game { ID = 0118, GamesClassID = 09, Name = "Winlot Triple6"},
                 // Other
-                new Game { ID = 0011, GamesClassID = 11, Name = "Grand Havava"},
-                new Game { ID = 0028, GamesClassID = 11, Name = "Grand Platinum"},
-                new Game { ID = 0029, GamesClassID = 11, Name = "Grand Ttrophy"},
-                new Game { ID = 0034, GamesClassID = 11, Name = "Network Biggy Lotto"},
-                new Game { ID = 0035, GamesClassID = 11, Name = "Network House Master Lotto"},
-                new Game { ID = 0059, GamesClassID = 11, Name = "Royal 06 Lotto"},
-                new Game { ID = 0060, GamesClassID = 11, Name = "Royal A1 Lotto"},
-                new Game { ID = 0061, GamesClassID = 11, Name = "Royal Vag Lotto"},
-                new Game { ID = 0105, GamesClassID = 11, Name = "Western Option"},
-                new Game { ID = 0106, GamesClassID = 11, Name = "Western Power"},
-                new Game { ID = 0107, GamesClassID = 11, Name = "Western Splash 5L90" }
+                new Game { ID = 0011, GamesClassID = 10, Name = "Grand Havava"},
+                new Game { ID = 0028, GamesClassID = 10, Name = "Grand Platinum"},
+                new Game { ID = 0029, GamesClassID = 10, Name = "Grand Ttrophy"},
+                new Game { ID = 0034, GamesClassID = 10, Name = "Network Biggy Lotto"},
+                new Game { ID = 0035, GamesClassID = 10, Name = "Network House Master Lotto"},
+                new Game { ID = 0059, GamesClassID = 10, Name = "Royal 06 Lotto"},
+                new Game { ID = 0060, GamesClassID = 10, Name = "Royal A1 Lotto"},
+                new Game { ID = 0061, GamesClassID = 10, Name = "Royal Vag Lotto"},
+                new Game { ID = 0105, GamesClassID = 10, Name = "Western Option"},
+                new Game { ID = 0106, GamesClassID = 10, Name = "Western Power"},
+                new Game { ID = 0107, GamesClassID = 10, Name = "Western Splash 5L90" }
             };
             foreach (Game game in games)
             {

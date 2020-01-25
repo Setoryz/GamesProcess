@@ -1,5 +1,4 @@
 @model GamesProcess.Libs.PaginatedList<GamesProcess.Models.Event>
-@*@model GamesProcess.Models.Game*@
 
 @{
     ViewData["Title"] = "Search";
@@ -7,11 +6,6 @@
 }
 
 <h2>Search</h2>
-
-@*<p>
-        <a asp-action="Create">Create New</a>
-    </p>
-*@
 
 
 <form action="Search" method="get">
@@ -22,8 +16,6 @@
 
         <hr />
 
-        @*<select name="GameSelection" class="form-control" asp-items="@(new SelectList(ViewBag.ListOfGames, "ID", "Name"))"></select>*@
-
         @*Reference Value Input*@
         <div class="form-group">
             <label class="control-label">No of Search Values</label>
@@ -32,122 +24,13 @@
             <input type="number" name="NoOfWeeksToDisplay" min="2" max="45" value="@ViewBag.DisplayWeeksParmAmt" />
             <label class="control-label">Game</label>
 
-            <select name="GameSelection" class="form-control" asp-items="@(new SelectList(ViewBag.ListOfGames, "ID", "Name"))"></select>
+            <select asp-for="GameSelection" class="form-control" asp-items="@(new SelectList(ViewBag.ListOfGames, "ID", "Name"))"></select>
 
-            @*<select name="GameSelection">
-                <option value="0">All games</option>
-                @switch ((int)ViewBag.GameSelection)
-                {
-                    case 1:
-                        <option selected value="1">Monday Special</option>
-                        <option value="2">Lucky Tuesday</option>
-                        <option value="3">Midweek Wednesday</option>
-                        <option value="4">Fortune</option>
-                        <option value="5">Bonanza Friday</option>
-                        <option value="6">National Saturday</option>
-                        <option value="7">Mark II</option>
-                        <option value="8">06 Premier</option>
-                        <option value="9">Premier Club Master</option>
-                        break;
-                    case 2:
-                        <option value="1">Monday Special</option>
-                        <option selected value="2">Lucky Tuesday</option>
-                        <option value="3">Midweek Wednesday</option>
-                        <option value="4">Fortune Thursday</option>
-                        <option value="5">Bonanza Friday</option>
-                        <option value="6">National Saturday</option>
-                        <option value="7">Mark II</option>
-                        <option value="8">06 Premier</option>
-                        <option value="9">Premier Club Master</option>
-                        break;
-                    case 3:
-                        <option value="1">Monday Special</option>
-                        <option value="2">Lucky Tuesday</option>
-                        <option selected value="3">Midweek Wednesday</option>
-                        <option value="4">Fortune Thursday</option>
-                        <option value="5">Bonanza Friday</option>
-                        <option value="6">National Saturday</option>
-                        <option value="7">Mark II</option>
-                        <option value="8">06 Premier</option>
-                        <option value="9">Premier Club Master</option>
-                        break;
-                    case 4:
-                        <option value="1">Monday Special</option>
-                        <option value="2">Lucky Tuesday</option>
-                        <option value="3">Midweek Wednesday</option>
-                        <option selected value="4">Fortune Thursday</option>
-                        <option value="5">Bonanza Friday</option>
-                        <option value="6">National Saturday</option>
-                        break;
-                    case 5:
-                        <option value="1">Monday Special</option>
-                        <option value="2">Lucky Tuesday</option>
-                        <option value="3">Midweek Wednesday</option>
-                        <option value="4">Fortune Thursday</option>
-                        <option selected value="5">Bonanza Friday</option>
-                        <option value="6">National Saturday</option>
-                        <option value="7">Mark II</option>
-                        <option value="8">06 Premier</option>
-                        <option value="9">Premier Club Master</option>
-                        break;
-                    case 6:
-                        <option value="1">Monday Special</option>
-                        <option value="2">Lucky Tuesday</option>
-                        <option value="3">Midweek Wednesday</option>
-                        <option value="4">Fortune Thursday</option>
-                        <option value="5">Bonanza Friday</option>
-                        <option selected value="6">National Saturday</option>
-                        <option value="7">Mark II</option>
-                        <option value="8">06 Premier</option>
-                        <option value="9">Premier Club Master</option>
-                        break;
-                    case 7:
-                        <option value="1">Monday Special</option>
-                        <option value="2">Lucky Tuesday</option>
-                        <option value="3">Midweek Wednesday</option>
-                        <option value="4">Fortune Thursday</option>
-                        <option value="5">Bonanza Friday</option>
-                        <option value="6">National Saturday</option>
-                        <option selected value="7">Mark II</option>
-                        <option value="8">06 Premier</option>
-                        <option value="9">Premier Club Master</option>
-                        break;
-                    case 8:
-                        <option value="1">Monday Special</option>
-                        <option value="2">Lucky Tuesday</option>
-                        <option value="3">Midweek Wednesday</option>
-                        <option value="4">Fortune Thursday</option>
-                        <option value="5">Bonanza Friday</option>
-                        <option value="6">National Saturday</option>
-                        <option value="7">Mark II</option>
-                        <option selected value="8">06 Premier</option>
-                        <option value="9">Premier Club Master</option>
-                        break;
-                    case 9:
-                        <option value="1">Monday Special</option>
-                        <option value="2">Lucky Tuesday</option>
-                        <option value="3">Midweek Wednesday</option>
-                        <option value="4">Fortune Thursday</option>
-                        <option value="5">Bonanza Friday</option>
-                        <option value="6">National Saturday</option>
-                        <option selected value="7">Mark II</option>
-                        <option value="8">06 Premier</option>
-                        <option value="9">Premier Club Master</option>
-                        break;
-                    default:
-                        <option value="1">Monday Special</option>
-                        <option value="2">Lucky Tuesday</option>
-                        <option value="3">Midweek Wednesday</option>
-                        <option value="4">Fortune Thursday</option>
-                        <option value="5">Bonanza Friday</option>
-                        <option value="6">National Saturday</option>
-                        <option value="7">Mark II</option>
-                        <option value="8">06 Premier</option>
-                        <option value="9">Premier Club Master</option>
-                        break;
-                }
-            </select>*@
+            <label class="control-label">Groups</label>
+            <select asp-for="GroupSelection" class="form-control" asp-items="@(new  SelectList(ViewBag.ListOfGroups, "ID" , "Name"))"></select>
         </div>
+
+
         <div class="form-group">
             <label class="control-label">Reference Value</label>
             <input type="number" name="ReferenceValue" min="1" max="90" value="@ViewBag.ReferenceValue" />
@@ -294,7 +177,8 @@
                 <th colspan="5">
                     Machine
                 </th>
-                <th></th>
+                <th>Game Name</th>
+                <th>Game Group</th>
             </tr>
         </thead>
         <tbody>
@@ -313,7 +197,6 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.EventNumber)
                     </td>
-                    @*@Html.DisplayFor(modelItem => item.WinningValues)*@
                     @for (int i = 0; i < item.Winning.Length; i++)
                     {
                         var highlight = (val2Week && item.Winning[i] == ViewBag.Value2) || (val3Week && item.Winning[i] == ViewBag.Value3) || (refWeek && item.Winning[i] == ViewBag.ReferenceValue) ? "danger" : "";
@@ -329,51 +212,18 @@
                             @Html.DisplayFor(modelItem => item.Machine[i])
                         </td>
                     }
-                    <td>
-                        @switch (item.GameID)
-                        {
-                            case 1:
-                                <span>Monday Special</span>
-                                break;
-                            case 2:
-                                <span>Lucky Tuesday</span>
-                                break;
-                            case 3:
-                                <span>Midweek Wednesday</span>
-                                break;
-                            case 4:
-                                <span>Fortune</span>
-                                break;
-                            case 5:
-                                <span>Friday Bonanza</span>
-                                break;
-                            case 6:
-                                <span>National</span>
-                                break;
-                            case 7:
-                                <span>Mark II</span>
-                                break;
-                            case 8:
-                                <span>06 Premier</span>
-                                break;
-                            case 9:
-                                <span>Premier Club Master</span>
-                                break;
-                            default:
-                                <span>Game Not Specified</span>
-                                break;
-                        }
-                    </td>
-                    @*
+                    @if (item.GameID <= Model.GamesList.Count)
+                    {
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.EventID">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.EventID">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.EventID">Delete</a>
+                            @Model.GamesList.Skip(item.GameID).First().Name.ToString()
                         </td>
-                    *@
+                        <td>
+                            @Model.GamesGroups.Skip(Model.GamesList.Skip(item.GameID).First().GamesClassID).First().Name.ToString()
+                        </td>
+                    }
                 </tr>
                 @if (y % ViewBag.DisplaySpaceParm == 0)
-                {
+                    {
                     <tr class="col success">
                         @for (int i = 0; i < 14; i++)
                         {
@@ -399,6 +249,7 @@
     <a asp-action="Search"
        asp-route-noOfSearchValues="@ViewBag.SearchParmAmt"
        asp-route-gameSelection="@ViewBag.GameSelection"
+       asp-route-groupSelection="@ViewBag.GroupSelection"
        asp-route-noOfWeeksToDisplay="@ViewBag.DisplayWeeksParmAmt"
        asp-route-referenceValue="@ViewBag.ReferenceValue"
        asp-route-referenceLocation="@ViewBag.ReferenceLocation"
@@ -418,6 +269,7 @@
     <a asp-action="Search"
        asp-route-noOfSearchValues="@ViewBag.SearchParmAmt"
        asp-route-gameSelection="@ViewBag.GameSelection"
+       asp-route-groupSelection="@ViewBag.GroupSelection"
        asp-route-noOfWeeksToDisplay="@ViewBag.DisplayWeeksParmAmt"
        asp-route-referenceValue="@ViewBag.ReferenceValue"
        asp-route-referenceLocation="@ViewBag.ReferenceLocation"
