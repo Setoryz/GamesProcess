@@ -5,12 +5,22 @@ using System.Collections.Generic;
 using System.Linq;
 using static GamesProcess.Libs.SearchBoolCheck;
 using System.Threading.Tasks;
-
+using GamesProcess.Data;
 
 namespace GamesProcess.Libs
 {
     public class AdvancedSearch
     {
+        #region Just Added: TO BE USED
+        //private readonly GameContext _context;
+
+        //public AdvancedSearch(GameContext context)
+        //{
+        //    _context = context;
+        //}
+
+        #endregion
+
         // PUBLIC IQUERYABLE METHOD TO FIND EVENTS
         // FINDS EVENT WHEN ONLY ONE NUMBR IS PROVIDED
         public static IQueryable<Event> FindAsync(IQueryable<Event> events, int noOfWeeksToDisplay, int referenceValue, int referenceLocation, int? referencePosition)
@@ -19,6 +29,7 @@ namespace GamesProcess.Libs
 
             if (referencePosition.HasValue)
             {
+
                 for (int currentWeek = 0; currentWeek < events.Count(); currentWeek++)
                 {
                     var currentEvent = events.Skip(currentWeek).First();
