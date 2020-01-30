@@ -128,16 +128,18 @@ namespace GamesProcess.Controllers
 
             List<Event> selectedEvents = new List<Event>();
 
-            //List<AdvancedSearchResult> results = new List<AdvancedSearchResult>();
+            List<AdvancedSearchResult> results = new List<AdvancedSearchResult>();
 
             switch (noOfSearchValues)
             {
                 case 1:
-                    //results = AdvSearch.FindResults(noOfWeeksToDisplay, referenceValue, referenceLocation, referencePos, gameSelection, groupGamesToSearchFrom).ToList();
+                    results = await Task.Run(() => AdvSearch.FindResults(_context, noOfWeeksToDisplay, referenceValue, referenceLocation, referencePos, gameSelection, groupGamesToSearchFrom).ToList());
 
                     selectedEvents = AdvancedSearch.FindAsync(events, noOfWeeksToDisplay, referenceValue, referenceLocation, referencePos).ToList();
                     break;
                 case 2:
+                    results = await Task.Run(() => AdvSearch.FindResults(_context, noOfWeeksToDisplay, referenceValue, referenceLocation, referencePos, gameSelection, groupGamesToSearchFrom, (int)value2, val2WeekSelect, value2Week, val2Location, value2Pos).ToList());
+
                     if (val2WeekSelect == 2)
                     {
                         for (int i = -2; i <= 2; i++)
@@ -151,6 +153,8 @@ namespace GamesProcess.Controllers
                     }
                     break;
                 case 3:
+                    results = await Task.Run(() => AdvSearch.FindResults(_context, noOfWeeksToDisplay, referenceValue, referenceLocation, referencePos, gameSelection, groupGamesToSearchFrom, (int)value2, val2WeekSelect, value2Week, val2Location, value2Pos, (int)value3, val3WeekSelect, value3Week, val3Location, value3Pos).ToList());
+
                     selectedEvents = AdvancedSearch.FindAsync(events, noOfWeeksToDisplay, referenceValue, referenceLocation, referencePos, (int)value2, value2Week, val2Location, value2Pos, (int)value3, value3Week, val3Location, value3Pos).ToList();
                     break;
                 default:

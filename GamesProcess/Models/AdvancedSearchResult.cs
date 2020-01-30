@@ -9,7 +9,8 @@ namespace GamesProcess.Models
     {
         public int ID { get; set; }
         public List<Event> Events { get; set; }
-        public int NoOfWeeksAvailableBeforeRef { get; set; }
-        public int NoOfWeeksAvailableAfterRef { get; set; }
+        public int ReferenceEventID { get; set; }
+        public int Value2EventID { get; set; }
+        public int Value3EventID { get; set; }
     }
 }
